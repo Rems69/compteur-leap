@@ -1,5 +1,4 @@
-var log,
-	canvas_compteur,
+var canvas_compteur,
 	ctx_compteur,
 	canvas_vitesse,
 	ctx_vitesse;
@@ -31,8 +30,8 @@ function drawCompteur() {
 
 
 	// Le plus petit cercle
-	ctx_compteur.beginPath(); // Le cercle extérieur
-	ctx_compteur.arc(400, 300, 200, 0.8*Math.PI, 0.2*Math.PI); // Ici le calcul est simplifié
+	ctx_compteur.beginPath();
+	ctx_compteur.arc(400, 300, 200, 0.8*Math.PI, 0.2*Math.PI);
 	ctx_compteur.fillStyle = "#ecf0f1";
 	ctx_compteur.strokeStyle = "#2c3e50";
 	ctx_compteur.lineWidth=4;
@@ -107,13 +106,6 @@ function drawCompteur() {
 	}
 
 	roundRect(ctx_compteur, 350, 363, 100, 40, 20);
-
-//	Central line
-//	ctx_compteur.beginPath();
-//	ctx_compteur.rect(400, 0, 1, 600);
-//	ctx_compteur.fillStyle = "#111111";
-//	ctx_compteur.fill();
-
 }
 
 function drawVitesse() {
@@ -142,7 +134,7 @@ function drawVitesse() {
 	ctx_vitesse.beginPath();
 	ctx_vitesse.moveTo(-50, -8);  // 1er point
 	ctx_vitesse.lineTo(130, 0); // 2e point
-	ctx_vitesse.lineTo(-50, 8); // 2e point
+	ctx_vitesse.lineTo(-50, 8); // 3e point
 	ctx_vitesse.closePath();
 	ctx_vitesse.lineWidth = "4";
 	ctx_vitesse.strokeStyle = "#2c3e50";
@@ -153,7 +145,7 @@ function drawVitesse() {
 
 	// Le support de l'aiguille
 	ctx_vitesse.beginPath(); // Le cercle extérieur
-	ctx_vitesse.arc(400, 300, 30, 0, Math.PI * 2); // Ici le calcul est simplifié
+	ctx_vitesse.arc(400, 300, 30, 0, Math.PI * 2);
 	ctx_vitesse.fillStyle = "#ecf0f1";
 	ctx_vitesse.strokeStyle = "#2c3e50";
 	ctx_vitesse.lineWidth=4;
@@ -185,25 +177,25 @@ function moveVitesse() {
 	previous_hand_position = hand_position;
 }
 
-	function animationLoop() {
-		ctx_vitesse.clearRect(0,0,600,600)
-		moveVitesse();
-		drawVitesse();
-	}
+function animationLoop() {
+	ctx_vitesse.clearRect(0,0,600,600)
+	moveVitesse();
+	drawVitesse();
+}
 
-	function init_compteur() {
-		duree = 0;
-		vitesse = 0;
-		vitesse_cpt = 0;
-		canvas_compteur  = document.querySelector('#compteur');
-		canvas_vitesse  = document.querySelector('#vitesse');
-		ctx_compteur = canvas_compteur.getContext('2d');
-		ctx_vitesse = canvas_vitesse.getContext('2d');
+function init_compteur() {
+	duree = 0;
+	vitesse = 0;
+	vitesse_cpt = 0;
+	canvas_compteur  = document.querySelector('#compteur');
+	canvas_vitesse  = document.querySelector('#vitesse');
+	ctx_compteur = canvas_compteur.getContext('2d');
+	ctx_vitesse = canvas_vitesse.getContext('2d');
 
-		drawCompteur();
+	drawCompteur();
 
-		setInterval(animationLoop, 1000 / 60);
-	}
+	setInterval(animationLoop, 1000 / 60);
+}
 
 function init_leap(){
 	current_hand_pos = 0;
@@ -218,11 +210,9 @@ function init_leap(){
 					left_hand_present = false;
 					// Je récupère les informations de la main droite sur l'axe Z
 					hand_position = Math.round(hand.palmPosition[2]);
-					hand_velocity = Math.round(hand.palmVelocity[2]);
 					hand_grab = hand.grabStrength;
 				}
 			});
-			log.innerHTML = hand_grab;
 		} else {
 			left_hand_present = false;
 		}
