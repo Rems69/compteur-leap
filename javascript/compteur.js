@@ -22,14 +22,14 @@ var current_hand_pos,
 
 function drawCompteur() {
 
-	// Le cercle de plus grand diametre
+	// Big circle
 	ctx_compteur.beginPath();
 	ctx_compteur.rect(0, 0, 800, 450);
 	ctx_compteur.fillStyle = '#ecf0f1';
 	ctx_compteur.fill();
 
 
-	// Le plus petit cercle
+	// Small circle
 	ctx_compteur.beginPath();
 	ctx_compteur.arc(400, 300, 200, 0.8*Math.PI, 0.2*Math.PI);
 	ctx_compteur.fillStyle = "#ecf0f1";
@@ -38,33 +38,33 @@ function drawCompteur() {
 	ctx_compteur.fill();
 	ctx_compteur.stroke();
 
-	// le texte km/h
+	// km/h text
 	ctx_compteur.font = "14pt Arial";
 	ctx_compteur.fillStyle = "#2c3e50";
 	ctx_compteur.fillText("KM/H", 377, 250);
 
-	// Les traits des graduations
-	ctx_compteur.save(); // je sauvegarde le contexte
+	// Graduations
+	ctx_compteur.save(); // Saving context
 	ctx_compteur.translate(400, 300);
 	ctx_compteur.rotate(Math.PI / 1.2);
 	for (i = 0; i < 41; i++) {
 		ctx_compteur.beginPath();
-		ctx_compteur.moveTo(200, 0);  // 1er point
+		ctx_compteur.moveTo(200, 0);  // First point
 		if(i%2 == 0){
 			ctx_compteur.lineWidth = "4";
-			ctx_compteur.lineTo(180, 0); // 2e point
+			ctx_compteur.lineTo(180, 0); // Second point
 		} else {
 			ctx_compteur.lineWidth = "3";
-			ctx_compteur.lineTo(190, 0); // 2e point
+			ctx_compteur.lineTo(190, 0); // Second point
 		}
 		ctx_compteur.strokeStyle = "#2c3e50";
 		ctx_compteur.stroke();
 
 		ctx_compteur.rotate(Math.PI / 30);
 	}
-	ctx_compteur.restore(); // je restaure le contexte
+	ctx_compteur.restore(); // Restore context
 
-	// Les label des graduations
+	// Graduations labels
 	var graduations = [
 		{value:"0", x:250, y:390},
 		{value:"20", x:230, y:323},
@@ -113,7 +113,7 @@ function drawVitesse() {
 		vitesse_cpt = Math.round(5 * vitesse);
 	}
 
-	// La vitesse numérique
+	// Digital counter
 	ctx_vitesse.font = "14pt Arial";
 	ctx_vitesse.fillStyle = "#2c3e50";
 	if(vitesse_cpt > 99) {
@@ -126,15 +126,15 @@ function drawVitesse() {
 
 	ctx_vitesse.save();
 
-	// L'aiguille
+	// Hand
 	ctx_vitesse.translate(400, 300);
 
 	ctx_vitesse.rotate((Math.PI / 30) * (25 + vitesse));
 
 	ctx_vitesse.beginPath();
-	ctx_vitesse.moveTo(-50, -8);  // 1er point
-	ctx_vitesse.lineTo(130, 0); // 2e point
-	ctx_vitesse.lineTo(-50, 8); // 3e point
+	ctx_vitesse.moveTo(-50, -8);
+	ctx_vitesse.lineTo(130, 0);
+	ctx_vitesse.lineTo(-50, 8);
 	ctx_vitesse.closePath();
 	ctx_vitesse.lineWidth = "4";
 	ctx_vitesse.strokeStyle = "#2c3e50";
@@ -143,8 +143,8 @@ function drawVitesse() {
 	ctx_vitesse.stroke();
 	ctx_vitesse.restore();
 
-	// Le support de l'aiguille
-	ctx_vitesse.beginPath(); // Le cercle extérieur
+	// Hand support
+	ctx_vitesse.beginPath();
 	ctx_vitesse.arc(400, 300, 30, 0, Math.PI * 2);
 	ctx_vitesse.fillStyle = "#ecf0f1";
 	ctx_vitesse.strokeStyle = "#2c3e50";
@@ -200,15 +200,15 @@ function init_compteur() {
 function init_leap(){
 	current_hand_pos = 0;
 	Leap.loop(function (frame) {
-		// Si au moins une main est présente
+		// If there's at least one hand
 		if(frame.hands.length > 0) {
 			frame.hands.forEach(function(hand, index) {
-				// Si la main gauche est présente
+				// If it's left hand
 				if(hand.type == "left") {
 					left_hand_present = true;
 				} else {
 					left_hand_present = false;
-					// Je récupère les informations de la main droite sur l'axe Z
+					// Get right hand informations on Z axis
 					hand_position = Math.round(hand.palmPosition[2]);
 					hand_grab = hand.grabStrength;
 				}
