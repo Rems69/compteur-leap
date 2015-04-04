@@ -1,0 +1,62 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	width:  100%;
+	height: 100%;
+}
+body {
+	background-color: #ecf0f1 !important;
+	text-align: center;
+}
+main {
+	display: inline-block;
+	text-align: left;
+}
+#log {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#layers {
+	position: relative;
+	margin: 0;
+	height: 450px;
+	width: 800px;
+}
+
+#layers canvas {
+	position: absolute;
+}
+
+#compteur {
+	z-index: 1;
+}
+
+#vitesse {
+	z-index: 2;
+
+}
+header {
+	width: 800px;
+	text-align: center;
+}
+
+header h1 {
+	font-size: 50px;
+}
+
+header h1 small{
+	font-size: 35px;
+	display: block;
+}
+
+#output {
+	width: 100%;
+	min-height: 300px;
+	position: absolute;
+	top: 0;
+	float: right;
+	margin-left: 650px;
+}
