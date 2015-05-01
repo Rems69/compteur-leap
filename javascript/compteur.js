@@ -6,11 +6,6 @@ var canvas_compteur,
 var vitesse,
 	duree;
 
-var sonKlaxon,
-	sonVictoire,
-	sonAcceleration;
-
-
 var current_hand_pos,
 	hand_direction,
 	previous_hand_direction,
